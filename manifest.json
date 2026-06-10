@@ -1,0 +1,55 @@
+{
+  "manifest_version": 3,
+  "name": "UI + API Recorder",
+  "version": "0.3.4",
+  "description": "One-click capture: tab video, network calls, UI actions, and a ready-to-run Playwright spec. All local, nothing uploaded.",
+  "incognito": "split",
+  "permissions": [
+    "debugger",
+    "storage",
+    "activeTab",
+    "scripting",
+    "tabs",
+    "tabCapture",
+    "downloads",
+    "offscreen",
+    "webNavigation"
+  ],
+  "host_permissions": ["<all_urls>"],
+  "action": {
+    "default_popup": "src/popup/popup.html",
+    "default_title": "UI + API Recorder",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
+    }
+  },
+  "icons": {
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "background": {
+    "service_worker": "src/background/background.js",
+    "type": "module"
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["src/content/content.js"],
+      "run_at": "document_start",
+      "all_frames": true
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": [
+        "src/offscreen/offscreen.html",
+        "src/offscreen/offscreen.js",
+        "src/viewer/viewer-standalone.html"
+      ],
+      "matches": ["<all_urls>"]
+    }
+  ]
+}

@@ -1,0 +1,17 @@
+# OS
+.DS_Store
+Thumbs.db
+
+# deps
+node_modules/
+
+# build artifacts / packaged extension
+*.zip
+
+# local debug captures
+events_*.json
+recording-*/
+
+# editor
+.vscode/
+.idea/

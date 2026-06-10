@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="zh">
+<head>
+<meta charset="utf-8">
+<title>Recorder</title>
+<link rel="stylesheet" href="popup.css">
+</head>
+<body>
+<div class="header">
+  <span id="status" class="status idle">空闲</span>
+  <span id="stats" class="stats"></span>
+</div>
+<div id="tab-warn" class="filter-info" style="display:none;color:#b25b00;font-weight:600;"></div>
+
+<div class="section">
+  <div class="section-title">功能开关(录制)</div>
+  <label><input type="checkbox" id="cb-recordVideo"> <span>屏幕录像 video.webm</span></label>
+  <label><input type="checkbox" id="cb-captureApi"> <span>抓后端 API</span></label>
+  <label><input type="checkbox" id="cb-captureActions"> <span>抓前端操作步骤</span></label>
+  <label><input type="checkbox" id="cb-emitPlaywright"> <span>生成 test.spec.ts(依赖前端操作)</span></label>
+</div>
+
+<div class="section">
+  <div class="section-title">导出过滤(events.json 含什么)</div>
+  <label><input type="checkbox" id="cb-exportApi"> <span>包含 API 事件</span></label>
+  <label><input type="checkbox" id="cb-exportActions"> <span>包含 UI 事件</span></label>
+</div>
+
+<div class="section">
+  <div class="section-title">产物开关(ZIP 里包含哪些文件)</div>
+  <label><input type="checkbox" id="cb-outVideo"> <span>video.webm</span></label>
+  <label><input type="checkbox" id="cb-outEvents"> <span>events.json</span></label>
+  <label><input type="checkbox" id="cb-outA11y"> <span>a11y/&lt;page&gt;.json(调试用,默认关 - events.json 已自洽)</span></label>
+  <label><input type="checkbox" id="cb-outApiDetails"> <span>api-details.json</span></label>
+  <label><input type="checkbox" id="cb-outSpec"> <span>test.spec.ts(Playwright 示例)</span></label>
+</div>
+
+<div class="section">
+  <div class="section-title">导出包名</div>
+  <label class="inline">
+    <span>前缀</span>
+    <input id="export-prefix" placeholder="recording">
+  </label>
+  <div class="filter-info">最终文件名:&lt;前缀&gt;-YYYY-MM-DDTHH-MM-SS.zip</div>
+</div>
+
+<div class="section">
+  <div class="section-title">API 过滤(每行一条,支持正则;or 多行=任意命中)</div>
+  <label class="inline col">
+    <span>include</span>
+    <textarea id="api-include" rows="2" placeholder="留空=全部&#10;例:&#10;/api/order&#10;/api/user"></textarea>
+  </label>
+  <label class="inline col">
+    <span>exclude</span>
+    <textarea id="api-exclude" rows="2"></textarea>
+  </label>
+</div>
+
+<div class="section">
+  <div class="section-title">Hover 弹框/按钮捕捉(v0.3.1)</div>
+  <label><input type="checkbox" id="cb-captureHover"> <span>启用 hover→click 回溯绑定</span></label>
+  <label class="inline">
+    <span>TTL(ms)</span>
+    <input id="hover-ttl" type="number" min="100" max="10000" step="100" placeholder="3000">
+  </label>
+  <label class="inline">
+    <span>几何距离阈值(px)</span>
+    <input id="hover-geom" type="number" min="20" max="2000" step="10" placeholder="240">
+  </label>
+  <label><input type="checkbox" id="cb-hoverDebug"> <span>诊断日志(在被录页面 DevTools 控制台打 [recorder.hover])</span></label>
+  <div class="filter-info">出现 reveal candidate 后 TTL 会自动 ×2 续期;无 click 的 hover 全部丢弃</div>
+</div>
+
+<div class="section">
+  <div class="section-title">Playwright 选项</div>
+  <label class="inline">
+    <span>baseURL</span>
+    <input id="pw-baseurl" placeholder="留空=用录制时的 origin">
+  </label>
+  <label class="inline">
+    <span>testid 属性</span>
+    <input id="pw-testid" placeholder="data-testid">
+  </label>
+  <label><input type="checkbox" id="pw-networkidle"> <span>每步等 networkidle(更稳但更慢)</span></label>
+</div>
+
+<div class="actions">
+  <button id="btn-start">开始</button>
+  <button id="btn-stop" disabled>停止</button>
+  <button id="btn-export">导出</button>
+</div>
+
+<div id="filter-info" class="filter-info"></div>
+<div id="hint" class="hint"></div>
+
+<script type="module" src="popup.js"></script>
+</body>
+</html>

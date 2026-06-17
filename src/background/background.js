@@ -659,7 +659,7 @@ async function exportSession() {
   if (wantEvents) {
     eventsJson = JSON.stringify({
       meta: {
-        version: '0.3.4',
+        version: '0.3.5',
         startedAt: sess.startedAt,
         endedAt: sess.endedAt || nowTs(),
         tabId: sess.tabId,
@@ -701,7 +701,7 @@ async function exportSession() {
     const details = sess.apiDetails.filter(d => keepIds.has(d.requestId));
     apiDetailsJson = JSON.stringify({
       meta: {
-        version: '0.3.4',
+        version: '0.3.5',
         count: details.length,
         note: '通过 requestId 与 events.json 中的 type=api 事件关联',
       },
@@ -729,7 +729,7 @@ async function exportSession() {
       if (n > 0) fname = `${fname}_${n + 1}`;
       const data = JSON.stringify({
         meta: {
-          version: '0.3.4',
+          version: '0.3.5',
           url,
           title: snaps[0]?.title || '',
           snapshotCount: snaps.length,
@@ -745,7 +745,7 @@ async function exportSession() {
     a11yFiles.push({
       name: 'a11y/index.json',
       data: JSON.stringify({
-        meta: { version: '0.3.4', pageCount: pageIndex.length },
+        meta: { version: '0.3.5', pageCount: pageIndex.length },
         pages: pageIndex,
       }, null, 2),
     });

@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "UI + API Recorder",
-  "version": "0.3.4",
+  "version": "0.3.5",
   "description": "One-click capture: tab video, network calls, UI actions, and a ready-to-run Playwright spec. All local, nothing uploaded.",
   "incognito": "split",
   "permissions": [
@@ -11,7 +11,6 @@
     "scripting",
     "tabs",
     "tabCapture",
-    "downloads",
     "offscreen",
     "webNavigation"
   ],

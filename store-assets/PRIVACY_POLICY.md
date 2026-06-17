@@ -15,7 +15,7 @@ UI + API Recorder is a developer tool that captures, on a single browser tab the
 - User interactions on that tab — clicks, inputs, navigations (via a content script)
 - A generated Playwright `test.spec.ts` derived from the above
 
-The output is packaged into a single `.zip` file and saved via Chrome's `downloads` API to the user's local Downloads folder.
+The output is packaged into a single `.zip` file and saved to the user's local Downloads folder using a standard `<a download>` link in an offscreen document. No `chrome.downloads` permission is used.
 
 ## Data the extension handles
 
@@ -46,8 +46,7 @@ All processing happens inside the user's browser. No network requests are made b
 | `tabs`, `activeTab` | Identify which tab the user starts recording on, and route events from that tab only. |
 | `scripting` | Inject the content script that records UI events on the recorded tab. |
 | `storage` | Persist user toggles (capture filters, output prefix, hover settings) across browser restarts. |
-| `downloads` | Save the final `recording-<timestamp>.zip` to the local Downloads folder. |
-| `offscreen` | Run the `MediaRecorder` in an offscreen document (required because MV3 service workers cannot create `Blob` URLs for recording). |
+| `offscreen` | Run the `MediaRecorder` in an offscreen document (required because MV3 service workers cannot create `Blob` URLs for recording), and trigger the final zip download via a standard `<a download>` link. |
 | `webNavigation` | Detect SPA route changes (`history.pushState`) so the generated Playwright script includes `page.goto(...)` steps. |
 | `host_permissions: <all_urls>` | The user may need to record any site; the content script attaches to the recorded tab only on user action (Start). It does not run background scans of other tabs. |
 
@@ -67,7 +66,7 @@ None. The extension does not load any remote script, font, or analytics SDK, and
 
 The full source code is auditable. Reviewers can verify the claims above by inspecting:
 
-- `src/background/background.js` — CDP attach and downloads pipeline
+- `src/background/background.js` — CDP attach pipeline
 - `src/content/content.js` — DOM event capture, runs only on the recorded tab
 - `src/offscreen/offscreen.js` — MediaRecorder lifecycle
 - `manifest.json` — declared permissions

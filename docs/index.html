@@ -48,7 +48,7 @@ footer { text-align:center; color:var(--muted); font-size:13px; padding:24px; }
   <li>User interactions on that tab - clicks, inputs, navigations (via a content script)</li>
   <li>A generated Playwright <code>test.spec.ts</code> derived from the above</li>
 </ul>
-<p>The output is packaged into a single <code>.zip</code> file and saved via Chrome's <code>downloads</code> API to the user's local Downloads folder.</p>
+<p>The output is packaged into a single <code>.zip</code> file and saved to the user's local Downloads folder using a standard <code>&lt;a download&gt;</code> link in an offscreen document. No <code>chrome.downloads</code> permission is used.</p>
 
 <h2>Data the extension handles</h2>
 <table>
@@ -78,8 +78,7 @@ footer { text-align:center; color:var(--muted); font-size:13px; padding:24px; }
 <tr><td><code>tabs</code>, <code>activeTab</code></td><td>Identify which tab the user starts recording on, and route events from that tab only.</td></tr>
 <tr><td><code>scripting</code></td><td>Inject the content script that records UI events on the recorded tab.</td></tr>
 <tr><td><code>storage</code></td><td>Persist user toggles (capture filters, output prefix, hover settings) across browser restarts.</td></tr>
-<tr><td><code>downloads</code></td><td>Save the final <code>recording-&lt;timestamp&gt;.zip</code> to the local Downloads folder.</td></tr>
-<tr><td><code>offscreen</code></td><td>Run <code>MediaRecorder</code> in an offscreen document (required because MV3 service workers cannot create <code>Blob</code> URLs for recording).</td></tr>
+<tr><td><code>offscreen</code></td><td>Run <code>MediaRecorder</code> in an offscreen document (required because MV3 service workers cannot create <code>Blob</code> URLs for recording), and trigger the final zip download via a standard <code>&lt;a download&gt;</code> link.</td></tr>
 <tr><td><code>webNavigation</code></td><td>Detect SPA route changes so the generated Playwright script includes <code>page.goto(...)</code> steps.</td></tr>
 <tr><td><code>host_permissions: &lt;all_urls&gt;</code></td><td>The user may need to record any site. The content script attaches only when the user clicks Start; no background scans of other tabs.</td></tr>
 </table>
@@ -98,7 +97,7 @@ footer { text-align:center; color:var(--muted); font-size:13px; padding:24px; }
 <h2>Open source</h2>
 <p>The full source code is auditable. Reviewers can verify the claims above by inspecting:</p>
 <ul>
-  <li><code>src/background/background.js</code> - CDP attach and downloads pipeline</li>
+  <li><code>src/background/background.js</code> - CDP attach pipeline</li>
   <li><code>src/content/content.js</code> - DOM event capture, runs only on the recorded tab</li>
   <li><code>src/offscreen/offscreen.js</code> - MediaRecorder lifecycle</li>
   <li><code>manifest.json</code> - declared permissions</li>

@@ -140,14 +140,9 @@ Required to inject the content script that records DOM events (clicks, inputs, n
 Required to persist user configuration (toggles, filters, naming prefix, hover settings) across browser restarts. Stores only configuration values, never any recording content or page content.
 ```
 
-**downloads**
-```
-Required to save the final recording-<timestamp>.zip to the user's local Downloads folder via chrome.downloads.download. No upload occurs.
-```
-
 **offscreen**
 ```
-Required because Manifest V3 service workers cannot create object URLs needed by MediaRecorder. The offscreen document hosts the recorder so video can be captured locally.
+Required because Manifest V3 service workers cannot create object URLs needed by MediaRecorder. The offscreen document hosts the recorder so video can be captured locally, and triggers the final zip download via a standard <a download> link (no chrome.downloads permission is used).
 ```
 
 **webNavigation**

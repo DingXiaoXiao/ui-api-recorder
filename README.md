@@ -2,7 +2,7 @@
 
 Chrome Manifest V3 扩展。一次操作，同时产出 4 类录制资料 —— 屏幕录像、后端 API 调用、前端操作步骤、可直接运行的 Playwright 测试脚本。每一类**独立开关**，全部本地处理，不上传任何数据。
 
-当前版本：**v0.3.4**
+当前版本：**v0.3.5**
 
 ---
 
@@ -149,6 +149,7 @@ src/
 
 ## 更新历史
 
+- **v0.3.5** — 移除未使用的 `downloads` 权限（下载始终走 offscreen 的 `<a download>`，不依赖 `chrome.downloads`）
 - **v0.3.4** — 多标签录制：页面跳转 / 新标签打开链接时自动跟随并继续采集 API 与 UI 事件
 - **v0.3.3** — hover 捕捉修复：默认 TTL 800ms→3000ms 并自动续期、trigger 锚点改用 `e.target`、同 anchor 去重、scanRoots 加强、指纹距离阈值放宽、新增诊断模式与 `hoverAttributionExpired` 提示
 - **v0.3.2** — 录制状态浮层指示器（Shadow DOM）+ popup 跨标签 warning

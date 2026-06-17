@@ -176,8 +176,7 @@ Capture a screen recording, network request log, UI action log, and a generated 
 | `tabs` | Required to read the recording tab's URL for navigation events (the `nav` entries in events.json) and to detect when the recording tab is closed so recording can stop cleanly. |
 | `scripting` | Required to inject the content script that records DOM events (clicks, inputs, navigations) on the recording tab. |
 | `storage` | Required to persist user configuration (toggles, filters, naming prefix, hover settings) across browser restarts. Stores only configuration, never recording content. |
-| `downloads` | Required to save the final recording-<timestamp>.zip to the user's local Downloads folder via chrome.downloads.download. |
-| `offscreen` | Required because Manifest V3 service workers cannot create object URLs needed by MediaRecorder; the offscreen document hosts the recorder. |
+| `offscreen` | Required because Manifest V3 service workers cannot create object URLs needed by MediaRecorder; the offscreen document hosts the recorder and triggers the final zip download via a standard `<a download>` link. |
 | `webNavigation` | Required to detect SPA route changes (history.pushState/replaceState) on the recording tab so the generated Playwright spec includes correct page.goto / page.waitForURL steps. |
 | `host_permissions: <all_urls>` | The user must be able to record any site they choose. The content script is injected only into the tab the user explicitly starts recording on; it does not run background scans across all sites. |
 

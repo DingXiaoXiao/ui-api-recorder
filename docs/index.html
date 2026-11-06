@@ -37,7 +37,7 @@ footer { text-align:center; color:var(--muted); font-size:13px; padding:24px; }
 <div class="card">
 
 <div class="tldr">
-<strong>TL;DR</strong> - This extension does not collect, transmit, sell, or share any personal data. All recording artifacts (video, network logs, UI events, generated Playwright scripts) are processed entirely inside your local browser and downloaded to your local disk. Nothing is sent to any remote server operated by the developer or any third party.
+<strong>TL;DR</strong> - This extension does not collect, transmit, sell, or share any personal data. All recording artifacts (video, network logs, UI events, generated Playwright scripts) are processed entirely inside your local browser and downloaded to your local disk. Recording artifacts are not sent to any remote server. When Anonymous Export Counts are enabled, only an anonymous export_completed event is sent to PostHog after a successful export.
 </div>
 
 <h2>What the extension does</h2>
@@ -105,7 +105,7 @@ footer { text-align:center; color:var(--muted); font-size:13px; padding:24px; }
 <p>The only outbound request is the anonymous <code>export_completed</code> event sent to PostHog when Anonymous Export Counts are enabled.</p>
   
 <h2>Children's privacy</h2>
-<p>The extension is a developer tool and is not directed at children under 13. It does not knowingly collect any data from any user.</p>
+<p>The extension is a developer tool and is not directed at children under 13. It does not knowingly collect personal data from children.</p>
 
 <h2>Changes to this policy</h2>
 <p>Material changes will be reflected in the extension's GitHub repository and the "Last updated" date above. Continued use after an update constitutes acceptance.</p>

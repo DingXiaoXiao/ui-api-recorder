@@ -30,7 +30,7 @@ footer { text-align:center; color:var(--muted); font-size:13px; padding:24px; }
 <header>
   <div class="inner">
     <h1>Privacy Policy - UI + API Recorder</h1>
-    <p>Last updated: 2026-06-09</p>
+    <p>Last updated: 2026-11-06</p>
   </div>
 </header>
 <main>
@@ -58,13 +58,13 @@ footer { text-align:center; color:var(--muted); font-size:13px; padding:24px; }
 <tr><td>DOM events (clicks, inputs, keypresses) and accessible names</td><td>Content script on the user-recorded tab</td><td>Local <code>events.json</code> in the downloaded zip</td></tr>
 <tr><td>Extension configuration (toggles, filters, prefix)</td><td><code>chrome.storage.local</code></td><td>Stored locally in the browser profile, never transmitted</td></tr>
 </table>
-<p>All processing happens inside the user's browser. No network requests are made by the extension to any external service.</p>
+<p>Recording artifacts are processed inside the user's browser. Anonymous Export Counts are enabled by default and can be disabled in More (Advanced Settings). After a successful export, the extension sends one <code>export_completed</code> event to PostHog. The event does not include recorded content, visited URLs, file names, account information, or persistent user identifiers.</p>
 
 <h2>Data the extension does NOT collect</h2>
 <ul>
-  <li>No analytics, telemetry, crash reports, or usage statistics</li>
+  <li>No crash reports or advertising identifiers</li>
   <li>No personally identifying information about the user</li>
-  <li>No data is sold or shared with third parties</li>
+  <li>No data is sold or used for advertising. Anonymous export-count events are processed by PostHog only to measure feature usage.</li>
   <li>No advertising identifiers</li>
   <li>No data is used to train AI/ML models</li>
   <li>No background recording - recording only runs while the user explicitly clicks <strong>Start</strong> and stops when the user clicks <strong>Stop</strong> or closes the tab</li>
@@ -92,7 +92,7 @@ footer { text-align:center; color:var(--muted); font-size:13px; padding:24px; }
 </ul>
 
 <h2>Third-party services</h2>
-<p><strong>None.</strong> The extension does not load any remote script, font, or analytics SDK, and does not make any outbound network request.</p>
+<p><strong>PostHog.</strong> PostHog processes anonymous <code>export_completed</code> events for aggregate usage measurement. No remote analytics script or SDK is loaded.</p>
 
 <h2>Open source</h2>
 <p>The full source code is auditable. Reviewers can verify the claims above by inspecting:</p>
@@ -102,8 +102,8 @@ footer { text-align:center; color:var(--muted); font-size:13px; padding:24px; }
   <li><code>src/offscreen/offscreen.js</code> - MediaRecorder lifecycle</li>
   <li><code>manifest.json</code> - declared permissions</li>
 </ul>
-<p>Search the codebase for <code>fetch(</code>, <code>XMLHttpRequest</code>, <code>navigator.sendBeacon</code> - there are zero outbound calls from the extension itself.</p>
-
+<p>The only outbound request is the anonymous <code>export_completed</code> event sent to PostHog when Anonymous Export Counts are enabled.</p>
+  
 <h2>Children's privacy</h2>
 <p>The extension is a developer tool and is not directed at children under 13. It does not knowingly collect any data from any user.</p>
 
